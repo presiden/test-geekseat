@@ -4,27 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ServiceApplicationImpl implements ServiceApplication {
-	
-	private Map<String, Map<String, Integer>> dummyData(){
-		Map<String, Map<String, Integer>> villagers = new HashMap<>();
-		Map<String, Integer> villager1 = new HashMap<>();
-		Map<String, Integer> villager2 = new HashMap<>();
-
-		villager1.put("ageOfDeath", 10);
-		villager1.put("yearOfDeath", 12);
-		villagers.put("A", (HashMap<String, Integer>) villager1);
-
-		villager2.put("ageOfDeath", 13);
-		villager2.put("yearOfDeath", 17);
-		villagers.put("B", (HashMap<String, Integer>) villager2);
-		
-		return villagers;
-	}
 
 	@Override
 	public Map<String, Object> calculate(Map<String, Map<String, Integer>> villagers) {
-		villagers = villagers.size() == 0 ? dummyData(): villagers;
-		
 		Map<String, Object> result = new HashMap<>();
 		int sumPeopleKilled = 0;
 		double avgPeopleKilled = 0;
