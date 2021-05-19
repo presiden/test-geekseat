@@ -2,13 +2,15 @@ package com.example.demo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
+
 
 public class TestServiceApplicationImpl {
 	private ServiceApplicationImpl serviceApplicationImpl = new ServiceApplicationImpl();
-	private HashMap<String, HashMap<String, Integer>> villagers = new HashMap<>();
-	private HashMap<String, Integer> villager1 = new HashMap<>();
-	private HashMap<String, Integer> villager2 = new HashMap<>();
+	private Map<String, Map<String, Integer>> villagers = new HashMap<>();
+	private Map<String, Integer> villager1 = new HashMap<>();
+	private Map<String, Integer> villager2 = new HashMap<>();
 	
 	public TestServiceApplicationImpl() {
 		villager1.put("ageOfDeath", 10);
@@ -23,7 +25,7 @@ public class TestServiceApplicationImpl {
 	@Test
 	public void testCalculateSuccess() {		
 		var result = serviceApplicationImpl.calculate(villagers);
-		assertEquals(8, result.get("avgPeopleKilled"));
+		assertEquals(4.5, result.get("avgPeopleKilled"));
 	}
 	
 	@Test

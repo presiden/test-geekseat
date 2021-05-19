@@ -1,9 +1,9 @@
 package com.example.demo;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface ServiceApplication {
-	public HashMap<String, Object> calculate(HashMap<String, HashMap<String, Integer>> villagers);
+	public Map<String, Object> calculate(Map<String, Map<String, Integer>> villagers);
 
 	public int getBirthYear(int ageOfDeath, int yearOfDeath);
 

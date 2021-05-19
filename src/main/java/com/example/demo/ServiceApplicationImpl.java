@@ -1,25 +1,45 @@
 package com.example.demo;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class ServiceApplicationImpl implements ServiceApplication {
+	
+	private Map<String, Map<String, Integer>> dummyData(){
+		Map<String, Map<String, Integer>> villagers = new HashMap<>();
+		Map<String, Integer> villager1 = new HashMap<>();
+		Map<String, Integer> villager2 = new HashMap<>();
+
+		villager1.put("ageOfDeath", 10);
+		villager1.put("yearOfDeath", 12);
+		villagers.put("A", (HashMap<String, Integer>) villager1);
+
+		villager2.put("ageOfDeath", 13);
+		villager2.put("yearOfDeath", 17);
+		villagers.put("B", (HashMap<String, Integer>) villager2);
+		
+		return villagers;
+	}
 
 	@Override
-	public HashMap<String, Object> calculate(HashMap<String, HashMap<String, Integer>> villagers) {
-
-		HashMap<String, Object> result = new HashMap<>();
+	public Map<String, Object> calculate(Map<String, Map<String, Integer>> villagers) {
+		villagers = villagers.size() == 0 ? dummyData(): villagers;
+		
+		Map<String, Object> result = new HashMap<>();
 		int sumPeopleKilled = 0;
 		double avgPeopleKilled = 0;
 		int validateBirthYear = 0;
 
-		for (HashMap.Entry<String, HashMap<String, Integer>> entry : villagers.entrySet()) {
-			HashMap<String, Integer> villager = entry.getValue();
+		for (Map.Entry<String, Map<String, Integer>> entry : villagers.entrySet()) {
+			Map<String, Integer> villager = entry.getValue();
 			int ageOfDeath = villager.get("ageOfDeath");
 			int yearOfDeath = villager.get("yearOfDeath");
 			int birthYear = getBirthYear(ageOfDeath, yearOfDeath);
 			int peopleKilled = getPeopleKilled(birthYear);
 			
-			validateBirthYear = birthYear < 1 ? -1 : 0;
+			//Validate birthyear
+			if(validateBirthYear == 0)
+				validateBirthYear = birthYear < 1 ? -1 : 0;
 			
 			villager.put("birthYear", birthYear);
 			villager.put("peopleKilled", peopleKilled);
