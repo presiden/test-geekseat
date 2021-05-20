@@ -5,6 +5,10 @@ import java.util.Map;
 
 public class ServiceApplicationImpl implements ServiceApplication {
 
+	/**
+	 * time complexity : O(n)
+	 * space complexity : O(n)
+	 */
 	@Override
 	public Map<String, Object> calculate(Map<String, Map<String, Integer>> villagers) {
 		Map<String, Object> result = new HashMap<>();
@@ -38,6 +42,10 @@ public class ServiceApplicationImpl implements ServiceApplication {
 		return result;
 	}
 
+	/**
+	 * time complexity : O(1)
+	 * space complexity : O(1)
+	 */
 	@Override
 	public int getBirthYear(int ageOfDeath, int yearOfDeath) {
 		int yearOfBirth = yearOfDeath - ageOfDeath;
@@ -45,6 +53,10 @@ public class ServiceApplicationImpl implements ServiceApplication {
 		return yearOfBirth;
 	}
 
+	/**
+	 * time complexity : O(n)
+	 * space complexity : O(1)
+	 */
 	@Override
 	public int getPeopleKilled(int birthYear) {
 		int summary = 1, year = 1;
