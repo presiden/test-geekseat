@@ -1,4 +1,4 @@
-##### How to run java application without build jar (Windows)
+##### How to run java application (Windows)
 ###### Without build jar
 1. Open command prompt in project folder 
 2. Run application, type: mvnw spring-boot:run
