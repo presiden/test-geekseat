@@ -14,27 +14,42 @@ public class ServiceApplicationImpl implements ServiceApplication {
 		Map<String, Object> result = new HashMap<>();
 		int sumPeopleKilled = 0;
 		double avgPeopleKilled = 0;
-		int validateBirthYear = 0;
+		int validateYearOfBirth = 0;
+		int validateAgeOfDeath = 0;
+		int validateYearOfDeath = 0;
+		boolean isValid = false;
 
 		for (Map.Entry<String, Map<String, Integer>> entry : villagers.entrySet()) {
 			Map<String, Integer> villager = entry.getValue();
 			int ageOfDeath = villager.get("ageOfDeath");
 			int yearOfDeath = villager.get("yearOfDeath");
-			int birthYear = getBirthYear(ageOfDeath, yearOfDeath);
-			int peopleKilled = getPeopleKilled(birthYear);
+			int yearOfBirth = getBirthYear(ageOfDeath, yearOfDeath);
+			int peopleKilled = getPeopleKilled(yearOfBirth);
 			
-			//Validate birthyear
-			if(validateBirthYear == 0)
-				validateBirthYear = birthYear < 1 ? -1 : 0;
+			//Validate year of birth
+			if(validateYearOfBirth == 0)
+				validateYearOfBirth = validateYearOfBirth(yearOfBirth);
 			
-			villager.put("birthYear", birthYear);
+			//Validate age of death
+			if(validateAgeOfDeath == 0)
+				validateAgeOfDeath = validateAgeOfDeath(ageOfDeath);
+			
+			//Validate year of death
+			if(validateYearOfDeath == 0)
+				validateYearOfDeath = validateYearOfDeath(yearOfDeath);
+			
+			villager.put("yearOfBirth", yearOfBirth);
 			villager.put("peopleKilled", peopleKilled);
 
 			sumPeopleKilled += peopleKilled;
 			result.put(entry.getKey(), villager);
 		}
 
-		avgPeopleKilled = validateBirthYear == 0 ? (double) sumPeopleKilled / villagers.size() : -1;
+		//Check data valid or invalid
+		isValid = isValid(validateYearOfBirth, validateAgeOfDeath, validateYearOfDeath);
+		
+		//If year of birth is valid and age is valid, then calculate average 
+		avgPeopleKilled = isValid ? (double) sumPeopleKilled / villagers.size() : -1;
 
 		result.put("sumPeopleKilled", sumPeopleKilled);
 		result.put("avgPeopleKilled", avgPeopleKilled);
@@ -79,5 +94,53 @@ public class ServiceApplicationImpl implements ServiceApplication {
 		}
 
 		return summary;
+	}
+	
+	/**
+	 * time complexity : O(1)
+	 * space complexity : O(1)
+	 */
+	//If year of birth is less than 1, then return -1
+	@Override
+	public int validateYearOfBirth(int yearOfBirth) {
+		int validateYearOfBirth = yearOfBirth < 1 ? -1 : 0;
+
+		return validateYearOfBirth;
+	}
+
+	/**
+	 * time complexity : O(1)
+	 * space complexity : O(1)
+	 */
+	//If age is negative, then return -1
+	@Override
+	public int validateAgeOfDeath(int ageOfDeath) {
+		int validateAgeOfDeath = ageOfDeath < 0 ? -1 : 0;
+		
+		return validateAgeOfDeath;
+	}
+	
+	/**
+	 * time complexity : O(1)
+	 * space complexity : O(1)
+	 */
+	//If year of death is less than 1, then return -1
+	@Override
+	public int validateYearOfDeath(int yearOfDeath) {
+		int validateYearOfDeath = yearOfDeath < 1 ? -1 : 0;
+		
+		return validateYearOfDeath;
+	}
+	
+	/**
+	 * time complexity : O(1)
+	 * space complexity : O(1)
+	 */
+	//If all validation is true, then return true, otherwise return false
+	@Override
+	public boolean isValid(int validateYearOfBirth, int validateAgeOfDeath, int validateYearOfDeath) {
+		boolean isValid = validateYearOfBirth == 0 && validateAgeOfDeath == 0 && validateYearOfDeath == 0;
+		
+		return isValid;
 	}
 }

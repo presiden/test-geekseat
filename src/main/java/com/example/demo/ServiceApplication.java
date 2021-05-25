@@ -7,5 +7,13 @@ public interface ServiceApplication {
 
 	public int getBirthYear(int ageOfDeath, int yearOfDeath);
 
-	public int getPeopleKilled(int birthYear);
+	public int getPeopleKilled(int yearOfBirth);
+	
+	public int validateYearOfBirth(int yearOfBirth);
+
+	public int validateAgeOfDeath(int ageOfDeath);
+	
+	public int validateYearOfDeath(int yearOfDeath);
+	
+	public boolean isValid(int validateYearOfBirth, int validateAgeOfDeath, int validateYearOfDeath);
 }
